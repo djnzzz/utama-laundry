@@ -1,0 +1,655 @@
+/* ===== PAYMENT PAGE STYLING ===== */
+.payment-wrapper {
+    max-width: 1200px;
+    margin: auto;
+    padding: 100px 40px 50px;
+}
+
+.payment-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.payment-title {
+    font-size: 1.9em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* ===== TIMER BOX ===== */
+.timer-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff4d9;
+    border: 2px solid #f2b23d;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-weight: 600;
+}
+
+.timer-label {
+    color: #333;
+    font-size: 0.95em;
+}
+
+.timer-countdown {
+    color: #d72638;
+    font-size: 1.3em;
+    font-weight: 700;
+    min-width: 70px;
+    text-align: center;
+}
+
+.timer-box.warning {
+    background: #ffe6e6;
+    border-color: #d72638;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+/* ===== PAYMENT GRID ===== */
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* ===== LEFT SIDE ===== */
+.payment-left {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.order-id-box {
+    background: #fafafa;
+    border: 2px solid #d7d7d7;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.order-id-box label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.id-copy-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.id-copy-wrapper input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #d3d3d3;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #006eff;
+    font-size: 1.1em;
+}
+
+.btn-copy {
+    padding: 12px 20px;
+    background: #006eff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-copy:hover {
+    background: #0054c4;
+}
+
+.order-id-box small {
+    color: #666;
+    font-size: 0.85em;
+}
+
+/* ===== DETAIL ORDER BOX ===== */
+.detail-order-box {
+    background: #fafafa;
+    border: 2px solid #d7d7d7;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.detail-order-box h3 {
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #111;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.95em;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row span:first-child {
+    color: #555;
+}
+
+.detail-row span:last-child {
+    font-weight: 600;
+    color: #111;
+}
+
+.total-row {
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 2px solid #333;
+    font-size: 1.1em;
+}
+
+.total-price {
+    color: #006eff !important;
+    font-size: 1.2em !important;
+}
+
+/* ===== UPLOAD BOX ===== */
+.upload-box {
+    background: #fafafa;
+    border: 2px solid #d7d7d7;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.upload-box h3 {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.upload-desc {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.upload-area {
+    border: 2px dashed #d3d3d3;
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.upload-area:hover {
+    border-color: #006eff;
+    background: #f0f7ff;
+}
+
+.upload-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 12px;
+    opacity: 0.6;
+}
+
+.upload-area p {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.upload-area small {
+    color: #666;
+    font-size: 0.85em;
+}
+
+/* ===== PREVIEW AREA ===== */
+.preview-area {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.preview-area img {
+    width: 100%;
+    border-radius: 12px;
+    border: 2px solid #d7d7d7;
+}
+
+.btn-remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #d72638;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-remove:hover {
+    background: #a81e2a;
+}
+
+/* ===== PAYMENT ACTIONS ===== */
+.payment-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-cancel {
+    width: 100%;
+    padding: 14px;
+    background: white;
+    border: 2px solid #d72638;
+    border-radius: 12px;
+    color: #d72638;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-cancel:hover {
+    background: #d72638;
+    color: white;
+}
+
+.btn-pay {
+    width: 100%;
+    padding: 14px;
+    background: #006eff;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-pay:hover:not(:disabled) {
+    background: #0054c4;
+    transform: translateY(-2px);
+}
+
+.btn-pay:disabled {
+    background: #b8b8b8;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-pay.loading {
+    background: #555;
+    cursor: wait;
+}
+
+/* ===== RIGHT SIDE ===== */
+.payment-right {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.qris-box {
+    background: #fafafa;
+    border: 2px solid #d7d7d7;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.qris-box h3 {
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.qris-image {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #e5e5e5;
+}
+
+.qris-image img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+.qris-info {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+}
+
+/* ===== INSTRUCTION BOX ===== */
+.instruction-box {
+    background: white;
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: left;
+}
+
+.instruction-box h4 {
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.instruction-box ol {
+    margin-left: 20px;
+    color: #555;
+}
+
+.instruction-box li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* ===== VERIFICATION STATUS ===== */
+.verification-status {
+    background: #e6f4ff;
+    border: 2px solid #006eff;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.status-icon {
+    margin-bottom: 15px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #e5e5e5;
+    border-top: 5px solid #006eff;
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.verification-status h4 {
+    font-weight: 700;
+    color: #006eff;
+    margin-bottom: 8px;
+}
+
+.verification-status p {
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* ===== MODAL UPDATES ===== */
+.modal-icon.warning {
+    background: #f2b23d;
+}
+
+.modal-icon.success {
+    background: #15a008;
+}
+
+.modal-icon.error {
+    background: #d72638;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: #006eff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: #0054c4;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 968px) {
+    .payment-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-wrapper {
+        padding: 100px 20px 50px;
+    }
+}
+
+/* ===== HIDDEN CLASS ===== */
+.hidden {
+    display: none !important;
+}
+
+/* ===== OUTLET PAYMENT PAGE ===== */
+.payment-subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 1em;
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
+
+.outlet-payment-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Success Icon Card */
+.order-id-card {
+    background: linear-gradient(135deg, #15a008 0%, #0d7006 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 35px 30px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(21, 160, 8, 0.2);
+}
+
+.success-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0 auto 15px;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.order-id-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.order-id-label {
+    font-size: 0.95em;
+    margin-bottom: 12px;
+    opacity: 0.95;
+}
+
+.order-id-card .id-copy-wrapper {
+    max-width: 400px;
+    margin: 0 auto 12px;
+}
+
+.order-id-card input {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    color: #15a008;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.order-id-card .btn-copy {
+    background: white;
+    color: #15a008;
+    border: 2px solid white;
+}
+
+.order-id-card .btn-copy:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.order-id-card small {
+    opacity: 0.9;
+}
+
+/* Info Note */
+.info-note {
+    background: #fff4d9;
+    border-left: 4px solid #f2b23d;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Instruction Card */
+.instruction-card {
+    background: #fafafa;
+    border: 2px solid #d7d7d7;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.instruction-card h3 {
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #111;
+}
+
+.steps-list {
+    margin-left: 20px;
+    color: #555;
+    line-height: 1.8;
+}
+
+.steps-list li {
+    margin-bottom: 12px;
+    padding-left: 8px;
+}
+
+.steps-list strong {
+    color: #006eff;
+}
+
+.steps-list a {
+    color: #006eff;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+/* Outlet Info Card */
+.outlet-info-card {
+    background: #e6f4ff;
+    border: 2px solid #006eff;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.outlet-info-card h3 {
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #006eff;
+}
+
+.info-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.info-row strong {
+    min-width: 140px;
+    color: #333;
+}
+
+.info-row span {
+    color: #555;
+}
+
+/* Outlet Actions */
+.outlet-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.outlet-actions .btn-cancel {
+    flex: 1;
+}
+
+.outlet-actions .btn-primary {
+    flex: 2;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive untuk outlet payment */
+@media (max-width: 768px) {
+    .outlet-actions {
+        flex-direction: column;
+    }
+
+    .outlet-actions .btn-cancel,
+    .outlet-actions .btn-primary {
+        width: 100%;
+    }
+
+    .info-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .info-row strong {
+        min-width: auto;
+    }
+}
