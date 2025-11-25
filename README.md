@@ -1,6 +1,6 @@
 ## 📋 Tentang Proyek
 
-Proyek ini merupakan hasil studi kasus UI/UX untuk **Utama Laundry** yang berlokasi di Jl. Kerto Raharjo No.1, Ketawanggede, Kota Malang. Platform ini dirancang untuk menjembatani kesenjangan digitalisasi UMKM laundry dengan menghadirkan solusi yang memudahkan akses informasi, pemesanan, dan pembayaran secara terintegrasi.
+Proyek ini merupakan platform digital website untuk **Utama Laundry** yang berlokasi di Ketawanggede, Kota Malang. Platform ini dirancang untuk menjembatani kesenjangan digitalisasi UMKM laundry dengan menghadirkan solusi yang memudahkan akses informasi, pemesanan, dan pembayaran secara terintegrasi.
 
 ---
 
