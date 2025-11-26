@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\StatusController;
 use App\Models\LaundryService;
 use App\Http\Controllers\ServiceController;
 
@@ -30,7 +31,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/order', function () {
         return view('pages.order');
     });
-    Route::get('/status', fn() => "Status cucian (login only)");
+    Route::get('/status', [StatusController::class, 'index'])->name('status.index');
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
     Route::delete('/riwayat/{order_sn}', [RiwayatController::class, 'destroy'])->name('riwayat.destroy');
 });
