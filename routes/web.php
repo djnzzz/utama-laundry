@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\InfoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RiwayatController;
@@ -12,7 +13,7 @@ use App\Http\Controllers\ServiceController;
 
 // == GUEST ONLY ==
 Route::get('/', fn() => view('home'));
-Route::get('/info-layanan', fn() => view('pages.info'));
+Route::get('/info-layanan', [InfoController::class, 'index'])->name('info.index');
 
 Route::get('/login', fn() => view('auth.login'))->name('login');
 Route::get('/register', fn() => view('auth.register'));
@@ -21,6 +22,13 @@ Route::get('/register', fn() => view('auth.register'));
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/logout', [AuthController::class, 'logout']);
+
+// ===== ADMIN ROUTES =====
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('dashboard');
+    Route::get('/price-management', [\App\Http\Controllers\Admin\AdminController::class, 'priceManagement'])->name('price.management');
+    Route::post('/price/update/{id}', [\App\Http\Controllers\Admin\AdminController::class, 'updatePrice'])->name('price.update');
+});
 
 // == USER ONLY ==
 Route::middleware('auth')->group(function() {

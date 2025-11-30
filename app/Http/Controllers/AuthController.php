@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -8,41 +9,78 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function register(Request $request) {
-    $request->validate([
-        'name' => 'required',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|min:8|confirmed'
-    ]);
-
-    User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password)
-    ]);
-
-        return redirect('/login')->with('success', 'Registrasi berhasil! Silakan login.');
-    }
-
-
-    public function login(Request $request) {
-        $request->validate([
+    /**
+     * Proses Login
+     */
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
-    
-        if (Auth::attempt($request->only('email','password'))) {
-            $request->session()->regenerate(); // TAMBAHKAN INI
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
             
-            return redirect('/')->with('success', 'Login berhasil! Selamat datang 🎉');
+            $user = Auth::user();
+            
+            // Redirect berdasarkan role
+            if ($user->role === 'admin') {
+                return redirect()->intended('/admin/dashboard')
+                    ->with('success', 'Selamat datang, ' . $user->name . '!');
+            }
+            
+            // User biasa redirect ke home
+            return redirect()->intended('/')
+                ->with('success', 'Login berhasil!');
         }
-    
-        return back()->with('error', 'Login gagal! Email atau password salah.');
+
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ])->withInput($request->only('email'));
     }
 
-    public function logout()
+    /**
+     * Proses Register
+     */
+    public function register(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            //'phone' => 'required|string|max:20',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            //'phone' => $validated['phone'],
+            'password' => Hash::make($validated['password']),
+            'role' => 'user', // Default role adalah user
+        ]);
+
+        Auth::login($user);
+
+        return redirect('/login')->with('success', 'Registrasi berhasil! Silahkan Login.');
+    }
+
+    /**
+     * Logout
+     */
+    public function logout(Request $request)
+    {
+        $isAdmin = Auth::user()->role === 'admin';
+        
         Auth::logout();
-        return redirect('/')->with('success', 'Berhasil logout dari akun');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirect ke login dengan pesan berbeda
+        if ($isAdmin) {
+            return redirect('/login')->with('success', 'Anda telah logout dari admin panel');
+        }
+
+        return redirect('/')->with('success', 'Logout berhasil!');
     }
 }

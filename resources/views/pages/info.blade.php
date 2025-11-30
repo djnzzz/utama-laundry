@@ -70,21 +70,13 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach($kiloServices as $service)
                 <tr>
-                  <td>Cuci Kering Setrika</td>
-                  <td>Rp 6000 / kg</td>
-                  <td>Rp 9000 / kg</td>
+                  <td>{{ $service->name }}</td>
+                  <td>Rp {{ number_format($service->price_reguler, 0, ',', '.') }} / kg</td>
+                  <td>Rp {{ number_format($service->price_express, 0, ',', '.') }} / kg</td>
                 </tr>
-                <tr>
-                  <td>Cuci Kering</td>
-                  <td>Rp 5000 / kg</td>
-                  <td>Rp 8000 / kg</td>
-                </tr>
-                <tr>
-                  <td>Setrika</td>
-                  <td>Rp 6000 / kg</td>
-                  <td>Rp 8000 / kg</td>
-                </tr>
+                @endforeach
               </tbody>
             </table>
 
@@ -140,21 +132,13 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach($nonKiloServices as $service)
                 <tr>
-                  <td>Selimut</td>
-                  <td>Rp 25000 / item</td>
-                  <td>Rp 45000 / item</td>
+                  <td>{{ str_replace('Laundry ', '', $service->name) }}</td>
+                  <td>Rp {{ number_format($service->price_reguler, 0, ',', '.') }} / item</td>
+                  <td>Rp {{ number_format($service->price_express, 0, ',', '.') }} / item</td>
                 </tr>
-                <tr>
-                  <td>Sprei</td>
-                  <td>Rp 15000 / item</td>
-                  <td>Rp 25000 / item</td>
-                </tr>
-                <tr>
-                  <td>Boneka</td>
-                  <td>Rp 10000 / item</td>
-                  <td>Rp 20000 / item</td>
-                </tr>
+                @endforeach
               </tbody>
             </table>
 
