@@ -34,12 +34,19 @@
                 Kelola Harga
             </a>
 
-            <a href="/" class="nav-item">
+            <a href="{{ route('admin.order.management') }}" class="nav-item">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </svg>
+                Kelola Pesanan
+            </a>
+
+            <!--<a href="/" class="nav-item">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                 </svg>
                 Kembali ke Website
-            </a>
+            </a>-->
 
             <a href="/logout" class="nav-item logout-btn">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
@@ -132,21 +139,21 @@
                     <p>Update harga layanan laundry</p>
                 </a>
 
-                <div class="action-card disabled">
+                <a href="{{ route('admin.order.management') }}" class="action-card">
                     <svg width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3z"/>
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                     </svg>
                     <h3>Kelola Pesanan</h3>
-                    <p>Coming soon...</p>
-                </div>
+                    <p>Verifikasi pembayaran & update status</p>
+                </a>
 
-                <div class="action-card disabled">
+                <!--<div class="action-card disabled">
                     <svg width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12V6a5 5 0 0 0-5-5z"/>
                     </svg>
                     <h3>Laporan</h3>
                     <p>Coming soon...</p>
-                </div>
+                </div>-->
             </div>
         </div>
     </main>

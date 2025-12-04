@@ -28,6 +28,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('dashboard');
     Route::get('/price-management', [\App\Http\Controllers\Admin\AdminController::class, 'priceManagement'])->name('price.management');
     Route::post('/price/update/{id}', [\App\Http\Controllers\Admin\AdminController::class, 'updatePrice'])->name('price.update');
+
+    // Order Management Routes
+    Route::get('/orders', [\App\Http\Controllers\Admin\AdminController::class, 'orderManagement'])->name('order.management');
+    Route::get('/order/{order_sn}', [\App\Http\Controllers\Admin\AdminController::class, 'orderDetail'])->name('order.detail');
+    Route::post('/payment/verify/{order_sn}', [\App\Http\Controllers\Admin\AdminController::class, 'verifyPayment'])->name('payment.verify');
+    Route::post('/order/update-status/{order_sn}', [\App\Http\Controllers\Admin\AdminController::class, 'updateOrderStatus'])->name('order.update.status');
+    Route::post('/status/update/{order_sn}', [StatusController::class, 'updateStatus'])->name('admin.status.update');
 });
 
 // == USER ONLY ==
