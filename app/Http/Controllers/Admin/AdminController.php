@@ -20,7 +20,7 @@ class AdminController extends Controller
         // Statistik untuk dashboard
         $stats = [
             'total_orders' => Order::count(),
-            'pending_orders' => Order::where('status', 'pending')->count(),
+            'pending_orders' => Order::where('payment_status', '!=', 'paid')->count(),
             'total_revenue' => Order::where('payment_status', 'paid')->sum('total_harga'),
             'total_users' => User::where('role', 'user')->count(),
         ];
@@ -210,6 +210,59 @@ class AdminController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal mengupdate status: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Selesaikan transaksi pembayaran di outlet
+     */
+    public function completeTransaction($order_sn)
+    {
+        try {
+            $order = Order::where('order_sn', $order_sn)->firstOrFail();
+
+            // Validasi: hanya untuk pembayaran non-QRIS pra-bayar
+            if ($order->payment_method === 'qris_pra') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Metode pembayaran QRIS Pra-Bayar harus melalui verifikasi bukti pembayaran'
+                ], 400);
+            }
+
+            // Validasi: jika sudah lunas
+            if ($order->payment_status === 'paid') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Transaksi ini sudah lunas'
+                ], 400);
+            }
+
+            // Update status pembayaran
+            $order->update([
+                'payment_status' => 'paid'
+            ]);
+
+            Log::info('Transaction completed by admin', [
+                'order_sn' => $order_sn,
+                'payment_method' => $order->payment_method,
+                'admin_id' => Auth::id(),
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Transaksi berhasil diselesaikan. Status pembayaran diupdate menjadi Lunas.'
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Failed to complete transaction', [
+                'error' => $e->getMessage(),
+                'order_sn' => $order_sn
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menyelesaikan transaksi: ' . $e->getMessage()
             ], 500);
         }
     }

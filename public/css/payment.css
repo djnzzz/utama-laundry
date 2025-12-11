@@ -266,6 +266,7 @@
     color: #d72638;
     font-weight: 600;
     cursor: pointer;
+    margin-top: 15px;
     transition: 0.3s;
 }
 
@@ -422,6 +423,172 @@
 
 .modal-icon.error {
     background: #d72638;
+}
+
+/* ===== MODAL CLOSE BUTTON ===== */
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 1;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.modal-close-btn:hover {
+    background: #e0e0e0;
+    color: #333;
+    transform: rotate(90deg);
+}
+
+/* ===== MODAL COUNTDOWN TEXT ===== */
+.modal-countdown {
+    color: #666 !important;
+    font-size: 0.9em !important;
+    margin-top: 10px !important;
+    animation: fadeIn 0.5s ease;
+}
+
+/* ===== SUCCESS STATE ICON ===== */
+.status-icon.success {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4caf50, #45a049);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    animation: scaleIn 0.5s ease;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.status-icon.success svg {
+    color: white;
+}
+
+/* ===== TRACK ORDER BUTTON ===== */
+.btn-track-order {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 24px;
+    background: #006eff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-track-order:hover {
+    background: #0057d8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 110, 255, 0.3);
+}
+
+/* ===== VERIFICATION STATUS UPDATE ===== */
+.verification-status h4 {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.verification-status p {
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ===== MODAL BOX ADJUSTMENT ===== */
+.modal-box {
+    position: relative;
+    padding: 35px 30px 30px;
+}
+
+/* ===== SUCCESS MODAL SPECIFIC ===== */
+#successModal .modal-box {
+    max-width: 450px;
+    animation: slideInDown 0.4s ease;
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ===== CLICKABLE OVERLAY ===== */
+.modal {
+    cursor: pointer;
+}
+
+.modal .modal-box {
+    cursor: default;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .modal-close-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .status-icon.success {
+        width: 70px;
+        height: 70px;
+    }
+
+    .status-icon.success svg {
+        width: 50px;
+        height: 50px;
+    }
+
+    .btn-track-order {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
 }
 
 .btn-primary {

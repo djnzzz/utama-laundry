@@ -49,7 +49,7 @@
                     <input type="text" id="orderSn" value="{{ $order->order_sn }}" readonly>
                     <button class="btn-copy" onclick="copyOrderSn()">Salin</button>
                 </div>
-                <small>Gunakan ID ini untuk tracking progres cucian Anda</small>
+                <small>Gunakan ID ini untuk tracking progres cucian kamu</small>
             </div>
 
             <div class="detail-order-box">
@@ -88,7 +88,7 @@
             <!-- Upload Bukti Pembayaran -->
             <div class="upload-box">
                 <h3>Upload Bukti Pembayaran</h3>
-                <p class="upload-desc">Upload screenshot bukti transfer Anda</p>
+                <p class="upload-desc">Upload screenshot bukti pembayaran kamu</p>
                 
                 <form id="uploadForm" action="/payment/upload-proof" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -123,12 +123,12 @@
                 <div class="qris-image">
                     <img src="{{ asset('assets/img/QRIS-Outlet.jpeg') }}" alt="QRIS Code">
                 </div>
-                <p class="qris-info">Scan kode QR di atas menggunakan aplikasi pembayaran digital Anda</p>
+                <p class="qris-info">Scan kode QR di atas menggunakan aplikasi pembayaran digital kamu</p>
                 
                 <div class="instruction-box">
                     <h4>Cara Pembayaran:</h4>
                     <ol>
-                        <li>Buka aplikasi e-wallet/m-banking Anda</li>
+                        <li>Buka aplikasi e-wallet/m-banking kamu</li>
                         <li>Pilih menu scan QRIS</li>
                         <li>Scan kode QR di atas</li>
                         <li>Masukkan nominal sesuai total pembayaran</li>
@@ -145,11 +145,48 @@
                     <div class="spinner"></div>
                 </div>
                 <h4>Menunggu Verifikasi Admin</h4>
-                <p>Bukti pembayaran Anda sedang diverifikasi oleh admin</p>
+                <p>Bukti pembayaran kamu sedang diverifikasi oleh admin</p>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h3>Tentang Utama Laundry</h3>
+      <p>
+        Utama Laundry adalah jasa layanan laundry yang melayani pencucian
+        pakaian, sprei, selimut, dan boneka. Kami menyediakan pilihan paket,
+        pemesanan laundry, serta pemantauan status cucian.
+      </p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Link Cepat</h3>
+      <ul>
+        <li><a href="/info-layanan">Info Layanan</a></li>
+        <li><a href="/order">Order</a></li>
+        <li><a href="/status">Status Cucian</a></li>
+        <li><a href="/riwayat">Riwayat</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Hubungi Kami</h3>
+      <p>Email: utamalaundry@gmail.com</p>
+      <p>Telepon: +62 812 3456 7890<br />+62 898 7654 3210</p>
+      <p>
+        Alamat: Jl. Kerto Raharjo No.1, Lowokwaru, Ketawanggede, Kota Malang
+      </p>
+      <p>Jam Buka: 07.00 - 20.00</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Utama Laundry. All Rights Reserved.</p>
+  </div>
+</footer>
 
 <!-- Modal Konfirmasi Pembatalan -->
 <div id="cancelModal" class="modal">
@@ -169,7 +206,7 @@
     <div class="modal-box">
         <div class="modal-icon success">✓</div>
         <h3>Pembayaran Berhasil!</h3>
-        <p>Pembayaran Anda telah diverifikasi oleh admin</p>
+        <p>Pembayaran kamu telah diverifikasi oleh admin</p>
         <button class="btn-primary" onclick="redirectToTracking()">Cek Status Cucian</button>
     </div>
 </div>

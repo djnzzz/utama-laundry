@@ -61,8 +61,6 @@
             <li><a href="/order">Order</a></li>
             <li><a href="/status">Status Cucian</a></li>
             <li><a href="/riwayat">Riwayat</a></li>
-            <li><a href="#">Kebijakan Privasi</a></li>
-            <li><a href="#">Syarat & Ketentuan</a></li>
           </ul>
         </div>
 

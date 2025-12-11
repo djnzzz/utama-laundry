@@ -221,7 +221,12 @@ function startVerificationPolling() {
             if (result.status === "verified") {
                 clearInterval(pollingInterval);
                 clearInterval(timerInterval);
-                showSuccessModal();
+
+                // Tampilkan modal sukses dengan auto-close
+                showSuccessModalWithAutoClose();
+
+                // Update tampilan ke "Pesanan Berhasil Dibuat"
+                updateToSuccessState();
             } else if (result.status === "rejected") {
                 clearInterval(pollingInterval);
                 showToast(
@@ -244,8 +249,86 @@ function startVerificationPolling() {
     }, 3000);
 }
 
-function showSuccessModal() {
-    document.getElementById("successModal").style.display = "flex";
+// ===== MODAL SUKSES DENGAN AUTO-CLOSE =====
+function showSuccessModalWithAutoClose() {
+    const modal = document.getElementById("successModal");
+    modal.style.display = "flex";
+
+    // Tambahkan tombol close
+    const modalBox = modal.querySelector(".modal-box");
+    if (!modalBox.querySelector(".modal-close-btn")) {
+        const closeBtn = document.createElement("button");
+        closeBtn.className = "modal-close-btn";
+        closeBtn.innerHTML = "×";
+        closeBtn.onclick = closeSuccessModal;
+        modalBox.insertBefore(closeBtn, modalBox.firstChild);
+    }
+
+    // Auto close setelah 10 detik
+    let countdown = 10;
+    const countdownText = document.createElement("p");
+    countdownText.className = "modal-countdown";
+    countdownText.style.cssText =
+        "color: #666; font-size: 0.9em; margin-top: 10px;";
+    countdownText.textContent = `Modal akan tertutup otomatis dalam ${countdown} detik`;
+
+    const existingCountdown = modalBox.querySelector(".modal-countdown");
+    if (existingCountdown) {
+        existingCountdown.remove();
+    }
+    modalBox.appendChild(countdownText);
+
+    const countdownInterval = setInterval(() => {
+        countdown--;
+        countdownText.textContent = `Modal akan tertutup otomatis dalam ${countdown} detik`;
+
+        if (countdown <= 0) {
+            clearInterval(countdownInterval);
+            closeSuccessModal();
+        }
+    }, 1000);
+
+    // Simpan interval ID untuk cleanup
+    modal.dataset.countdownInterval = countdownInterval;
+}
+
+function closeSuccessModal() {
+    const modal = document.getElementById("successModal");
+
+    // Clear countdown interval jika ada
+    if (modal.dataset.countdownInterval) {
+        clearInterval(parseInt(modal.dataset.countdownInterval));
+    }
+
+    modal.style.display = "none";
+}
+
+// Update tampilan ke "Pesanan Berhasil Dibuat"
+function updateToSuccessState() {
+    const verificationStatus = document.getElementById("verificationStatus");
+
+    // Ganti konten dengan pesan sukses
+    verificationStatus.innerHTML = `
+        <div class="status-icon success">
+            <svg width="60" height="60" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+        </div>
+        <h4 style="color: #4caf50;">Pesanan Berhasil Dibuat!</h4>
+        <p>Pembayaran telah diverifikasi. Pesanan kamu sedang diproses.</p>
+        <a href="/status?order_sn=${orderSn}" class="btn-track-order" style="display: inline-block; margin-top: 15px; padding: 12px 24px; background: #006eff; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+            Lacak Pesanan
+        </a>
+    `;
+
+    // Stop timer karena pembayaran sudah berhasil
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        const timerBox = document.getElementById("timerBox");
+        if (timerBox) {
+            timerBox.style.display = "none";
+        }
+    }
 }
 
 function redirectToTracking() {
@@ -307,7 +390,6 @@ function showToast(type, message) {
 
 // ===== INIT =====
 document.addEventListener("DOMContentLoaded", () => {
-    startTimer();
     checkExistingProof();
 });
 
@@ -317,14 +399,35 @@ async function checkExistingProof() {
         const result = await response.json();
 
         if (result.has_proof) {
-            document.querySelector(".upload-box").classList.add("hidden");
-            document
-                .getElementById("verificationStatus")
-                .classList.remove("hidden");
-            startVerificationPolling();
+            // Cek apakah sudah verified
+            if (result.status === "verified") {
+                // Jika sudah verified, langsung tampilkan status sukses
+                document.querySelector(".upload-box").classList.add("hidden");
+                document
+                    .getElementById("verificationStatus")
+                    .classList.remove("hidden");
+                updateToSuccessState();
+
+                // Tidak perlu polling lagi
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+            } else {
+                // Jika masih pending, tampilkan status menunggu verifikasi
+                document.querySelector(".upload-box").classList.add("hidden");
+                document
+                    .getElementById("verificationStatus")
+                    .classList.remove("hidden");
+                startVerificationPolling();
+                startTimer();
+            }
+        } else {
+            // Belum ada bukti, tampilkan form upload dan mulai timer
+            startTimer();
         }
     } catch (error) {
         console.error("Error checking proof:", error);
+        startTimer();
     }
 }
 
@@ -332,4 +435,11 @@ async function checkExistingProof() {
 window.addEventListener("beforeunload", () => {
     if (timerInterval) clearInterval(timerInterval);
     if (pollingInterval) clearInterval(pollingInterval);
+});
+
+// Close modal saat klik di luar modal box
+document.getElementById("successModal")?.addEventListener("click", (e) => {
+    if (e.target.id === "successModal") {
+        closeSuccessModal();
+    }
 });

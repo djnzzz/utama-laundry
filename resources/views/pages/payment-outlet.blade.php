@@ -56,12 +56,12 @@
         <div class="order-id-card">
             <div class="success-icon">✓</div>
             <h3>Pesanan Berhasil Dibuat!</h3>
-            <p class="order-id-label">ID Pesanan Anda:</p>
+            <p class="order-id-label">ID Pesanan kamu:</p>
             <div class="id-copy-wrapper">
                 <input type="text" id="orderSn" value="{{ $order->order_sn }}" readonly>
                 <button class="btn-copy" onclick="copyOrderSn()">Salin</button>
             </div>
-            <small>Simpan ID ini untuk tracking progres cucian Anda</small>
+            <small>Simpan ID ini untuk tracking progres cucian kamu</small>
         </div>
 
         <!-- Detail Pesanan -->
@@ -135,7 +135,7 @@
             
             @if($order->payment_method === 'cash_pra')
                 <ol class="steps-list">
-                    <li>Bawa cucian Anda ke <strong>Utama Laundry</strong></li>
+                    <li>Bawa cucian kamu ke <strong>Utama Laundry</strong></li>
                     <li>Tunjukkan <strong>ID Pesanan</strong> kepada staff</li>
                     <li>Serahkan cucian untuk ditimbang</li>
                     <li>Lakukan pembayaran secara <strong>tunai</strong></li>
@@ -145,7 +145,7 @@
                 </ol>
             @elseif($order->payment_method === 'qris_pasca')
                 <ol class="steps-list">
-                    <li>Bawa cucian Anda ke <strong>Utama Laundry</strong></li>
+                    <li>Bawa cucian kamu ke <strong>Utama Laundry</strong></li>
                     <li>Tunjukkan <strong>ID Pesanan</strong> kepada staff</li>
                     <li>Serahkan cucian untuk ditimbang</li>
                     <li>Cucian akan diproses sesuai paket yang dipilih</li>
@@ -155,7 +155,7 @@
                 </ol>
             @else
                 <ol class="steps-list">
-                    <li>Bawa cucian Anda ke <strong>Utama Laundry</strong></li>
+                    <li>Bawa cucian kamu ke <strong>Utama Laundry</strong></li>
                     <li>Serahkan cucian untuk ditimbang</li>
                     <li>Cucian akan diproses sesuai paket yang dipilih</li>
                     <li>Cek progres cucian di menu <a href="/status">Status Cucian</a></li>

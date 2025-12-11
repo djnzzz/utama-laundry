@@ -504,6 +504,45 @@
     font-size: 0.9em;
 }
 
+.complete-transaction-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px solid #f0f0f0;
+    text-align: center;
+}
+
+.btn-complete-transaction {
+    width: 100%;
+    padding: 16px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.btn-complete-transaction:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.btn-complete-transaction:active {
+    transform: translateY(0);
+}
+
+.complete-note {
+    display: block;
+    margin-top: 12px;
+    color: #666;
+    font-size: 0.85em;
+    font-style: italic;
+}
+
 /* ===== MODAL ===== */
 .modal {
     position: fixed;

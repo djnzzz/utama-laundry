@@ -696,11 +696,11 @@ body {
 }
 
 .toast.success {
-    background-color: #15a008; /* hijau teal */
+    background-color: #15a008;
 }
 
 .toast.error {
-    background-color: #d72638; /* merah */
+    background-color: #d72638;
 }
 
 /* ======================= */

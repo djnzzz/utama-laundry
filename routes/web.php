@@ -35,6 +35,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/payment/verify/{order_sn}', [\App\Http\Controllers\Admin\AdminController::class, 'verifyPayment'])->name('payment.verify');
     Route::post('/order/update-status/{order_sn}', [\App\Http\Controllers\Admin\AdminController::class, 'updateOrderStatus'])->name('order.update.status');
     Route::post('/status/update/{order_sn}', [StatusController::class, 'updateStatus'])->name('admin.status.update');
+
+    // Selesaikan transaksi (pembayaran di outlet)
+    Route::post('/payment/complete-transaction/{order_sn}', [\App\Http\Controllers\Admin\AdminController::class, 'completeTransaction'])
+        ->name('payment.complete-transaction');
 });
 
 // == USER ONLY ==

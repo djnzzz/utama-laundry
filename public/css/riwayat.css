@@ -321,7 +321,7 @@
 }
 
 .status-paid {
-    background: #2ecc71;
+    background: #15a008;
     color: white;
 }
 
@@ -618,7 +618,7 @@
 }
 
 .toast.success {
-    background-color: #2ecc71;
+    background-color: #15a008;
 }
 
 .toast.error {

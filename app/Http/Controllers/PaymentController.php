@@ -122,21 +122,47 @@ class PaymentController extends Controller
     }
 
     /**
-     * Cek apakah user sudah upload bukti (untuk refresh page)
-     */
+    * Check apakah order sudah punya bukti pembayaran
+    * dan status verifikasinya
+    */
     public function checkProof($order_sn)
     {
-        $order = Order::with('paymentProof')->where('order_sn', $order_sn)->firstOrFail();
-        
-        if ($order->user_id !== Auth::id()) {
-            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
-        }
+        try {
+            $order = Order::with('paymentProof')
+                ->where('order_sn', $order_sn)
+                ->firstOrFail();
 
-        return response()->json([
-            'has_proof' => $order->paymentProof !== null,
-            'status' => $order->paymentProof?->status ?? 'none'
-        ]);
-    }
+           $hasProof = $order->paymentProof !== null;
+           $status = null;
+
+           if ($hasProof) {
+               // Cek status proof
+               $proofStatus = $order->paymentProof->status;
+            
+               // Mapping status proof ke payment status
+               if ($proofStatus === 'verified' || $order->payment_status === 'paid') {
+                   $status = 'verified';
+              } elseif ($proofStatus === 'rejected') {
+                  $status = 'rejected';
+              } else {
+                  $status = 'pending';
+             }
+          }
+
+          return response()->json([
+              'has_proof' => $hasProof,
+              'status' => $status,
+              'payment_status' => $order->payment_status
+          ]);
+
+      } catch (\Exception $e) {
+          return response()->json([
+              'has_proof' => false,
+              'status' => null,
+             'error' => $e->getMessage()
+         ], 404);
+      }
+    }   
 
     /**
      * Cancel order oleh user

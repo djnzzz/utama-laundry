@@ -12,7 +12,7 @@
 <body>
 
 <div class="admin-wrapper">
-    <!-- Sidebar (sama seperti sebelumnya) -->
+    <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" class="sidebar-logo">
@@ -41,13 +41,6 @@
                 </svg>
                 Kelola Pesanan
             </a>
-
-            <!--<a href="/" class="nav-item">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                </svg>
-                Kembali ke Wsebsite
-            </a>-->
 
             <a href="/logout" class="nav-item logout-btn">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
@@ -230,6 +223,15 @@
                             Pembayaran dilakukan di outlet
                         @endif
                     </p>
+
+                    @if($order->payment_status !== 'paid')
+                    <div class="complete-transaction-section">
+                        <button onclick="completeTransaction()" class="btn-complete-transaction">
+                            ✓ Selesaikan Transaksi
+                        </button>
+                        <small class="complete-note">Pastikan pembayaran customer sudah diterima</small>
+                    </div>
+                    @endif
                 </div>
                 @endif
             </div>
@@ -254,8 +256,10 @@
 
 <script src="{{ asset('js/admin.js') }}"></script>
 <script>
+// Define order serial number
 const orderSn = "{{ $order->order_sn }}";
 
+// Update Status Cucian
 function updateStatus() {
     const status = document.getElementById('statusCucianSelect').value;
     
@@ -276,10 +280,52 @@ function updateStatus() {
         }
     })
     .catch(error => {
+        console.error('Update status error:', error);
         showToast('error', 'Gagal mengupdate status');
     });
 }
 
+// Complete Transaction (Selesaikan Transaksi)
+function completeTransaction() {
+    console.log('completeTransaction() dipanggil');
+    console.log('orderSn:', orderSn);
+    
+    const url = `/admin/payment/complete-transaction/${orderSn}`;
+    console.log('Mengirim request ke:', url);
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        }
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(result => {
+        console.log('Response data:', result);
+        if (result.success) {
+            showToast('success', result.message);
+            setTimeout(() => {
+                console.log('Reloading halaman...');
+                location.reload();
+            }, 1500);
+        } else {
+            showToast('error', result.message || 'Gagal menyelesaikan transaksi');
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+        showToast('error', 'Gagal menyelesaikan transaksi: ' + error.message);
+    });
+}
+
+// Verify Payment (for QRIS Pra)
 function verifyPayment(action) {
     if (action === 'reject') {
         document.getElementById('rejectModal').style.display = 'flex';
@@ -305,10 +351,12 @@ function verifyPayment(action) {
         }
     })
     .catch(error => {
+        console.error('Verify payment error:', error);
         showToast('error', 'Gagal memverifikasi pembayaran');
     });
 }
 
+// Confirm Reject Payment
 function confirmReject() {
     const reason = document.getElementById('rejectionReason').value.trim();
     
@@ -339,21 +387,34 @@ function confirmReject() {
         }
     })
     .catch(error => {
+        console.error('Reject payment error:', error);
         showToast('error', 'Gagal menolak pembayaran');
     });
 }
 
+// Close Reject Modal
 function closeRejectModal() {
     document.getElementById('rejectModal').style.display = 'none';
     document.getElementById('rejectionReason').value = '';
 }
 
+// Show Toast Notification
 function showToast(type, message) {
     const toast = document.getElementById('toast');
+    if (!toast) {
+        console.error('Toast element tidak ditemukan!');
+        alert(message); // Fallback ke alert
+        return;
+    }
     toast.className = `toast ${type} show`;
     toast.textContent = message;
     setTimeout(() => toast.classList.remove('show'), 3000);
 }
+
+// Log when page loads
+console.log('Order detail page loaded');
+console.log('Order SN:', orderSn);
+console.log('CSRF Token:', document.querySelector('meta[name="csrf-token"]')?.content);
 </script>
 
 </body>
