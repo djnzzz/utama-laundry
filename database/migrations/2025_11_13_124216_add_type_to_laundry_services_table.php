@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::table('laundry_services', function (Blueprint $table) {
-        $table->enum('type', ['kiloan', 'non-kiloan'])->default('kiloan')->after('name');
-    });
+    if (!Schema::hasColumn('laundry_services', 'type')) {
+        Schema::table('laundry_services', function (Blueprint $table) {
+            $table->enum('type', ['kiloan', 'non-kiloan'])->default('kiloan')->after('name');
+        });
+    }
 }
 
 public function down()
